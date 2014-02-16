@@ -1,0 +1,7 @@
+body { padding: 1em 0; }
+.green { color: green; }
+.red { color: red; }
+
+ul.pricing-table li.price { text-overflow: ""; overflow: hidden; white-space: nowrap; }
+.deploybtns { margin: auto auto 1em auto; display: block; }
+#output { line-height: 1.5; }

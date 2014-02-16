@@ -1,0 +1,55 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kap10: All Systems Nominal</title>
+    <link rel="stylesheet" href="/static/css/foundation.min.css" />
+    <link rel="stylesheet" href="/static/css/app.css" />
+  </head>
+  <body>
+
+    {% set locked = db.is_locked() %}
+    <div class="row">
+      <div class="large-12 columns">
+        <h1 class="text-center" style="margin-bottom: 0.5em;">
+          Kap10:
+          {% if locked %}
+          <span class="red">System Locked</span>
+          {% else %}
+          <span class="green">System Unlocked</span>
+          {% endif %}
+        </h1>
+      </div>
+    </div>
+
+    {% for triplet in projects %}
+    <div class="row">
+      {% for id, project in triplet %}
+      {% set commit = db.get_commit(id) %}
+      <div class="{% if length == 1 %}large-12{% elif length == 2 %}large-6{% else %}large-4{% endif %} columns">
+          <ul class="pricing-table">
+            <li class="title">{{ project["name"] }}</li>
+            <li class="price">
+              {% if project["gh_url"] %}
+              <a href="{{ project["gh_url"] }}/commit/{{ commit }}">{{ commit }}</a>
+              {% else %}
+              {{ db.get_commit(id) }}
+              {% endif %}
+            </li>
+            <li class="bullet-item">Last Updated: {% if project["last_updated"] %}{{ project["last_updated"] }}{% else %}Never{% endif %}</li>
+            <li class="bullet-item">Deployer: {% if project["last_updated_by"] %}{{ project["last_updated_by"] }}{% else %}Never{% endif %}</li>
+
+            {% if not locked %}
+            <li class="cta-button">
+              <a class="alert button" href="/deploy/{{ id }}">Deploy</a>
+            </li>
+            {% endif %}
+          </ul>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+  </body>
+</html>
