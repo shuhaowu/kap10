@@ -44,7 +44,6 @@ def deploy(project):
     if db.is_locked():
       return abort(503)
 
-    print request.json
     db.run_script(id, request.json["commit"].strip())
     # Last person started is good enough.
     db.update_project(id, request.json["name"])

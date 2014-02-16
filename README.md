@@ -9,6 +9,9 @@ Screenies
 ---------
 
 ![Main Screen](https://raw.github.com/shuhaowu/kap10/master/main.png)
+
+-----------
+
 ![Deploy Screen](https://raw.github.com/shuhaowu/kap10/master/deploy.png)
 
 
