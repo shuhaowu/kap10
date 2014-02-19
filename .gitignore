@@ -37,3 +37,6 @@ nosetests.xml
 .pydevproject
 *.sublime-project
 *.sublime-workspace
+
+configs/database.json
+configs/settings_local.py

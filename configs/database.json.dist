@@ -1,0 +1,15 @@
+{
+    "passwords": [
+        "7c4a8d09ca3762af61e59520943dc26494f8941b"
+    ],
+    "projects": {
+        "kap10": {
+            "name": "Kap10",
+            "script": [
+                "/home/kap10/kap10-deploy.sh"
+            ],
+            "app_folder": "/home/kap10/app/",
+            "gh_url": "https://github.com/shuhaowu/kap10"
+        }
+    }
+}

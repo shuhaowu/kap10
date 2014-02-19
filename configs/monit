@@ -1,0 +1,4 @@
+check process {name} with pidfile /home/{name}/app.pid
+    start program = "/home/{name}/{name} start" uid {name} gid {name}
+    stop program = "/home/{name}/{name} stop" uid {name} gid {name}
+    if failed port {port} then restart
