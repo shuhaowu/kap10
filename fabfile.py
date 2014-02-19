@@ -153,9 +153,12 @@ def install_python_requirements():
       sudo("pip install -r {}/requirements.txt".format(app_dir))
 
 
-def push_app_settings():
+def push_app_settings(overwrite_db=False):
   for remotepath, localpath, context, critical in APP_SETTINGS_FILES:
     if not os.path.exists(localpath) and not critical:
+      continue
+
+    if not overwrite_db and "database.json" in localpath:
       continue
 
     if callable(context):
@@ -168,9 +171,9 @@ def push_app_settings():
   sudo("chown {name}:{name} {app_dir}/database.json".format(name=PROJECT_NAME, app_dir=app_dir))
 
 
-def deploy(commit="master"):
+def deploy(commit="master", overwrite_db=False):
   backup_current_venv()
   create_new_venv()
   sync_project(commit)
   install_python_requirements()
-  push_app_settings()
+  push_app_settings(overwrite_db=overwrite_db)

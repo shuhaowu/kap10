@@ -1,4 +1,4 @@
 check process %(name)s with pidfile /home/%(name)s/app.pid
-    start program = "/home/%(name)s/{name} start" uid %(name)s gid %(name)s
+    start program = "/home/%(name)s/%(name)s start" uid %(name)s gid %(name)s
     stop program = "/home/%(name)s/%(name)s stop" uid %(name)s gid %(name)s
     if failed port %(port)s then restart
