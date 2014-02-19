@@ -71,7 +71,7 @@ def setup_user():
 
 
 def ensure_packages_installed():
-  sudo("apt-get install -y nginx monit")
+  sudo("apt-get install -y nginx monit libevent-dev")
 
 
 def setup_directory_structure():
@@ -146,7 +146,7 @@ def sync_project(commit):
 def install_python_requirements():
   with cd(venv_dir):
     with prefix("source bin/activate"):
-      sudo("pip install -r {}/requirements.txt".app_dir)
+      sudo("pip install -r {}/requirements.txt".format(app_dir))
 
 
 def push_app_settings():
