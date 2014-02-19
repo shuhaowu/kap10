@@ -103,9 +103,13 @@ def setup_configuration_files():
     if callable(context):
       context = context()
 
-    files.upload_template(localpath, remotepath, context, use_sudo=True)
+    files.upload_template(localpath, remotepath, context, use_sudo=True, backup=False)
+    sudo("chown root:root {}".format(remotepath))
 
+  if not files.is_link("/etc/nginx/sites-enabled/{name}".format(name=PROJECT_NAME)):
+    sudo("ln -s /etc/nginx/sites-available/{name} /etc/nginx/sites-enabled/{name}".format(name=PROJECT_NAME))
   sudo("chmod +x {home_dir}/kap10-deploy.sh".format(home_dir=home_dir))
+  sudo("chmod +x {home_dir}/kap10".format(home_dir=home_dir))
 
 
 def setup_fabric_login_key_for_root():
@@ -157,7 +161,8 @@ def push_app_settings():
     if callable(context):
       context = context()
 
-    files.upload_template(localpath, remotepath, context, use_sudo=True)
+    files.upload_template(localpath, remotepath, context, use_sudo=True, backup=True)
+    sudo("chown root:root {}".format(remotepath))
 
   # Project specific thing.
   sudo("chown {name}:{name} {app_dir}/database.json".format(name=PROJECT_NAME, app_dir=app_dir))

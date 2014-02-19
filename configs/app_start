@@ -1,16 +1,16 @@
 #!/bin/bash
 
-PIDFILE=/home/{name}/app.pid
+PIDFILE=/home/%(name)s/app.pid
 
 case $1 in
    start)
       echo $$ > ${PIDFILE};
-      source /home/{name}/venv/bin/activate
-      PORT={port} exec python /home/{name}/app/server.py 2>/dev/null
+      source /home/%(name)s/venv/bin/activate
+      PORT=%(port)d exec python /home/%(name)s/app/server.py 2>/dev/null
       ;;
     stop)
       kill `cat ${PIDFILE}` ;;
     *)
-      echo "usage: {name} {start|stop}" ;;
+      echo "usage: %(name)s {start|stop}" ;;
 esac
 exit 0

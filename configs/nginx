@@ -1,12 +1,12 @@
 server {
         listen 80;
-        server_name {domain};
+        server_name %(domain)s;
 
-        access_log /home/{name}/logs/nginx-access.log;
-        error_log /home/{name}/logs/nginx-error.log;
+        access_log /home/%(name)s/logs/nginx-access.log;
+        error_log /home/%(name)s/logs/nginx-error.log;
 
         location / {
-                proxy_pass http://127.0.0.1:{port}/;
+                proxy_pass http://127.0.0.1:%(port)d/;
                 proxy_redirect off;
 
                 proxy_http_version 1.1;
