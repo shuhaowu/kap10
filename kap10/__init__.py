@@ -31,6 +31,9 @@ def main():
 
   return render_template("main.html", projects=projects, db=db, length=i)
 
+@app.route("/test")
+def test():
+  return "test"
 
 @app.route("/deploy/<project>", methods=["POST", "GET"])
 def deploy(project):
