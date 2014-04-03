@@ -18,6 +18,7 @@ function trigger_deploy() {
     var sse = new EventSource(sseurl);
     sse.onmessage = function(message) {
       out.innerHTML += message.data + "\n";
+      window.scrollTo(0, document.body.scrollHeight);
     };
   };
 
