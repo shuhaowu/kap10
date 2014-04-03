@@ -175,7 +175,7 @@ def push_app_settings(overwrite_db=False):
 def runapp():
   sudo("service monit start")
   sudo("service nginx start")
-  sudo("monit start {}".format(PROJECT_NAME))
+  sudo("monit restart {}".format(PROJECT_NAME))
 
 
 def deploy(commit="master", overwrite_db="False", run="False"):
