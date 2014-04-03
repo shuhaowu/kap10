@@ -1,6 +1,7 @@
 import os
+from distutils.util import strtobool
 
-from fabric.api import cd, abort, env, sudo, prefix
+from fabric.api import cd, abort, sudo, prefix
 from fabric.contrib import files
 
 PROJECT_NAME = "kap10"
@@ -71,7 +72,7 @@ def setup_user():
 
 
 def ensure_packages_installed():
-  sudo("apt-get install -y nginx monit libevent-dev")
+  sudo("apt-get install -y nginx monit libevent-dev git")
 
 
 def setup_directory_structure():
@@ -118,7 +119,7 @@ def setup_fabric_login_key_for_root():
     if not files.exists("/root/.ssh/id_rsa_kap10_local.pub", use_sudo=True):
       sudo("ssh-keygen -f id_rsa_kap10_local -t rsa -N '' -K2048")
       sudo("cat id_rsa_kap10_local.pub >> authorized_keys")
-      sudo("cp id_rsa_kap10_local.pub /home/kap10/root_local_key")
+      sudo("cp id_rsa_kap10_local /home/kap10/root_local_key")
 
   sudo("chown kap10:kap10 /home/kap10/root_local_key")
   sudo("chmod 400 /home/kap10/root_local_key")
@@ -171,9 +172,20 @@ def push_app_settings(overwrite_db=False):
   sudo("chown {name}:{name} {app_dir}/database.json".format(name=PROJECT_NAME, app_dir=app_dir))
 
 
-def deploy(commit="master", overwrite_db=False):
+def runapp():
+  sudo("service monit start")
+  sudo("service nginx start")
+  sudo("monit start {}".format(PROJECT_NAME))
+
+
+def deploy(commit="master", overwrite_db=False, run=False):
+  overwrite_db = bool(strtobool(overwrite_db))
+  run = bool(strtobool(run))
   backup_current_venv()
   create_new_venv()
   sync_project(commit)
   install_python_requirements()
   push_app_settings(overwrite_db=overwrite_db)
+
+  if run:
+    runapp()
