@@ -29,8 +29,8 @@ For the vagrant box the deployment goes as follows:
     $ cp configs database.json.dst database.json # you might need to modify things in monit, nginx as well.
     $ vagrant up
     $ wget https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant
-    $ fab deploy --host 192.168.33.155 --user vagrant -i vagrant
     $ fab setup --host 192.168.33.155 --user vagrant -i vagrant
+    $ fab deploy --host 192.168.33.155 --user vagrant -i vagrant
     $ vagrant ssh
     $ sudo vim /etc/monit/monitrc # change it so that "set httpd port 2812" is uncommented and allow localhost
     $ sudo service monit restart
