@@ -178,7 +178,7 @@ def runapp():
   sudo("monit start {}".format(PROJECT_NAME))
 
 
-def deploy(commit="master", overwrite_db=False, run=False):
+def deploy(commit="master", overwrite_db="False", run="False"):
   overwrite_db = bool(strtobool(overwrite_db))
   run = bool(strtobool(run))
   backup_current_venv()
